@@ -7,24 +7,34 @@
 import ugame
 import stage
 
-import constants
+# import constants
+
 
 
 def game_scene():
-    # This function is the main game scene
+    # constants
+    SCREEN_X = 160
+    SCREEN_Y = 128
+    SCREEN_GRID_X = 10
+    SCREEN_GRID_Y = 8
+    SPRITE_SIZE = 16
+    TOTAL_NUMBER_OF_ALIENS = 5
+    FPS = 60
+    SPRITE_MOVEMENT_SPEED = 1
     
+    # This function is the main game scene
     image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
     image_bank_sprites = stage.Bank.from_bmp16("space_aliens.bmp")
     
     # Sets the background to image 0 in Bank
     # Sets tile size
-    background = stage.Grid(image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y)
+    background = stage.Grid(image_bank_background, SCREEN_GRID_X, SCREEN_GRID_Y)
     
-    ship = stage.Sprite(image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE)
+    ship = stage.Sprite(image_bank_sprites, 5, 75, SCREEN_Y - (2 * SPRITE_SIZE))
     
     # Create stage for game
     # Set frame rate to 60 per second
-    game = stage.Stage(ugame.display, constants.FPS)
+    game = stage.Stage(ugame.display, 60)
     game.layers = [ship] + [background]
     game.render_block()
 
@@ -44,10 +54,10 @@ def game_scene():
         if keys & ugame.K_SELECT:
             pass
         if keys & ugame.K_RIGHT:
-            if ship.y <= constants.SCREEN_X - constants.SPRITE_SIZE:
+            if ship.y <= SCREEN_X - SPRITE_SIZE:
                 ship.move(ship.x + 1, ship.y)
             else:
-                ship.move(constants.SCREEN_X - constants.SPRITE_SIZE, ship.y)
+                ship.move(SCREEN_X - SPRITE_SIZE, ship.y)
         if keys & ugame.K_LEFT:
             if ship.x >= 0:
                 ship.move(ship.x - 1, ship.y)
