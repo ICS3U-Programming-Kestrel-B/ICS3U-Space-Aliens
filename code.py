@@ -198,6 +198,11 @@ def game_scene():
     # Sets the background to image 0 in Bank
     # Sets tile size
     background = stage.Grid(image_bank_background, SCREEN_GRID_X, SCREEN_GRID_Y)
+    
+    for x_location in range(SCREEN_GRID_X):
+        for y_location in range(SCREEN_GRID_Y):
+            tile_picked = random.randint(1, 3)
+            background.tile(x_location, y_location, tile_picked)
    
     ship = stage.Sprite(image_bank_sprites, 5, 75, SCREEN_Y - (2 * SPRITE_SIZE))
     
