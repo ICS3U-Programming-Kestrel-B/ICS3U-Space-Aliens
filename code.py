@@ -6,8 +6,91 @@
  
 import ugame
 import stage
+import time
+import random
  
 # import constants
+def splash_scene():
+    # This is the splash scene
+    
+    # Get coin sound ready
+    coin_sound = open("coin.wav", 'rb')
+    sound = ugame.audio
+    sound.stop()
+    sound.mute(False)
+    sound.play(coin_sound)
+    
+    # Image bank
+    image_bank_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
+    
+    # Setting background to image 0
+    background = stage.Grid(image_bank_background, SCREEN_GRID_X, SCREEN_GRID_Y)
+    
+    
+    background.tile(2, 2, 0)  # blank white
+
+    background.tile(3, 2, 1)
+
+    background.tile(4, 2, 2)
+
+    background.tile(5, 2, 3)
+
+    background.tile(6, 2, 4)
+
+    background.tile(7, 2, 0)  # blank white
+
+
+
+    background.tile(2, 3, 0)  # blank white
+
+    background.tile(3, 3, 5)
+
+    background.tile(4, 3, 6)
+
+    background.tile(5, 3, 7)
+
+    background.tile(6, 3, 8)
+
+    background.tile(7, 3, 0)  # blank white
+
+
+
+    background.tile(2, 4, 0)  # blank white
+
+    background.tile(3, 4, 9)
+
+    background.tile(4, 4, 10)
+
+    background.tile(5, 4, 11)
+
+    background.tile(6, 4, 12)
+
+    background.tile(7, 4, 0)  # blank white
+
+
+
+    background.tile(2, 5, 0)  # blank white
+
+    background.tile(3, 5, 0)
+
+    background.tile(4, 5, 13)
+
+    background.tile(5, 5, 14)
+
+    background.tile(6, 5, 0)
+
+    background.tile(7, 5, 0)  # blank white
+    
+   
+    game = stage.Grid(image_bank_background, SCREEN_GRID_X, SCREEN_GRID_Y)
+    game.layers = [background]
+    game.render_block()
+ 
+    while True:
+        # Wait for 2 seconds
+        time.sleep(2.0)
+        menu_scene()
+        
 def menu_scene():
     # This is the main game scene
     
