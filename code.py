@@ -166,6 +166,9 @@ def menu_scene():
 
 def game_scene():
     
+    # For score
+    score = 0
+    
     def show_alien():
         # This function takes an alien from off the screen and puts it on the screen
         for alien_number in range(len(aliens)):
@@ -197,6 +200,7 @@ def game_scene():
     
     # Get sound ready
     pew_sound = open("pew.wav", 'rb')
+    boom_sound = open("boom.wav", 'rb')
     sound = ugame.audio
     sound.stop()
     sound.mute(False)
@@ -297,6 +301,24 @@ def game_scene():
                 if aliens [alien_number].y < OFF_TOP_SCREEN:
                     aliens[alien_number].move(OFF_SCREEN_X, OFF_SCREEN_Y)
                     show_alien()
+                    
+        # Check if lasers are touching aliens
+        for laser_number in range(len(lasers)):
+            if lasers[laser_number].x > 0:
+                for alien_number in range(len(aliens)):
+                    if aliens[alien_number].x > 0:
+                        if stage.collide(lasers[laser_number].x, lasers[laser_number].y,
+                        lasers[laser_number].x + 16, lasers[laser_number].y + 16,
+                        aliens[alien_number].x, aliens[alien_number].y,
+                        aliens[alien_number].x + 16, aliens[alien_number].y + 16):
+                            # Hitting an alien
+                            aliens[alien_number].move(OFF_SCREEN_X, OFF_SCREEN_Y)
+                            lasers[laser_number].move(OFF_SCREEN_X, OFF_SCREEN_Y)
+                            sound.stop()
+                            sound.play(boom_sound)
+                            show_alien()
+                            show_alien()
+        
        
         # Redraw Sprites
         game.render_sprites(lasers + [ship] + aliens)
