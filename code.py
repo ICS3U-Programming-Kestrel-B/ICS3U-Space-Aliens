@@ -8,6 +8,18 @@ import ugame
 import stage
 import time
 import random
+
+# constants
+SCREEN_X = 160
+SCREEN_Y = 128
+SCREEN_GRID_X = 10
+SCREEN_GRID_Y = 8
+SPRITE_SIZE = 16
+TOTAL_NUMBER_OF_ALIENS = 5
+FPS = 60
+SPRITE_MOVEMENT_SPEED = 1
+
+game = stage.Stage(ugame.display, 60)
  
 # import constants
 def splash_scene():
@@ -21,10 +33,10 @@ def splash_scene():
     sound.play(coin_sound)
     
     # Image bank
-    image_bank_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
+    image_bank_mt_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
     
     # Setting background to image 0
-    background = stage.Grid(image_bank_background, SCREEN_GRID_X, SCREEN_GRID_Y)
+    background = stage.Grid(image_bank_mt_background, SCREEN_X, SCREEN_Y)
     
     
     background.tile(2, 2, 0)  # blank white
@@ -82,7 +94,7 @@ def splash_scene():
     background.tile(7, 5, 0)  # blank white
     
    
-    game = stage.Grid(image_bank_background, SCREEN_GRID_X, SCREEN_GRID_Y)
+    # game = stage.Grid(image_bank_mt_background, SCREEN_GRID_X, SCREEN_GRID_Y)
     game.layers = [background]
     game.render_block()
  
@@ -94,15 +106,6 @@ def splash_scene():
 def menu_scene():
     # This is the main game scene
     
-    # constants
-    SCREEN_X = 160
-    SCREEN_Y = 128
-    SCREEN_GRID_X = 10
-    SCREEN_GRID_Y = 8
-    SPRITE_SIZE = 16
-    TOTAL_NUMBER_OF_ALIENS = 5
-    FPS = 60
-    SPRITE_MOVEMENT_SPEED = 1
     
     # Button state
     button_state = {
@@ -139,7 +142,7 @@ def menu_scene():
    
     # Create stage for game
     # Set frame rate to 60 per second
-    game = stage.Stage(ugame.display, 60)
+    # game = stage.Stage(ugame.display, 60)
     game.layers = text + [background]
     game.render_block()
  
@@ -258,4 +261,4 @@ def game_scene():
         game.tick()
  
 if __name__ == "__main__":
-    menu_scene()
+    splash_scene()
