@@ -8,6 +8,68 @@ import ugame
 import stage
  
 # import constants
+def menu_scene():
+    # This is the main game scene
+    
+    # constants
+    SCREEN_X = 160
+    SCREEN_Y = 128
+    SCREEN_GRID_X = 10
+    SCREEN_GRID_Y = 8
+    SPRITE_SIZE = 16
+    TOTAL_NUMBER_OF_ALIENS = 5
+    FPS = 60
+    SPRITE_MOVEMENT_SPEED = 1
+    
+    # Button state
+    button_state = {
+        "button_up": "up",
+        "button_just_pressed": "just pressed",
+        "button_still_pressed": "still pressed",
+        "button_released": "released"
+    }
+    
+    # Palette for red coloured text
+    RED_PALETTE = (b'\xff\xff\x00\x22\xcey\x22\xff\xff\xff\xff\xff\xff\xff\xff\xff'
+    b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff')
+   
+    # This function is the main game scene
+    image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
+    
+    
+    # Add text objects
+    text = []
+    text1 = stage.Text(width=29, height=12, font=None, palette=RED_PALETTE, buffer=None)
+    text1.move(20, 10)
+    text1.text("Are You Sure?")
+    text.append(text1)
+    
+    text2 = stage.Text(width=29, height=12, font=None, palette=RED_PALETTE, buffer=None)
+    text1.move(20, 10)
+    text2.move(40, 110)
+    text2.text("PRESS START")
+    text.append(text2)
+    
+    # Sets the background to image 0 in Bank
+    # Sets tile size
+    background = stage.Grid(image_bank_background, SCREEN_GRID_X, SCREEN_GRID_Y)
+   
+    # Create stage for game
+    # Set frame rate to 60 per second
+    game = stage.Stage(ugame.display, 60)
+    game.layers = text + [background]
+    game.render_block()
+ 
+    while True:
+        # Get user input
+        keys = ugame.buttons.get_pressed()
+        
+        if keys & ugame.K_START != 0:
+            game_scene()
+       
+        # Redraw Sprites
+        game.tick()
+
 def game_scene():
     # constants
     SCREEN_X = 160
@@ -26,6 +88,10 @@ def game_scene():
         "button_still_pressed": "still pressed",
         "button_released": "released"
     }
+    
+    # Palette for red coloured text
+    # RED_PALETTE = (b'\xff\xff\x00\xcey\x22\xff\xff\xff\xff\xff\xff\xff\xff\xff'
+    #                b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff)
    
     # This function is the main game scene
     image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
@@ -108,6 +174,5 @@ def game_scene():
         game.render_sprites([ship] + [alien])
         game.tick()
  
- 
 if __name__ == "__main__":
-    game_scene()
+    menu_scene()
